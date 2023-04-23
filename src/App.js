@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { Typography, Box } from "@mui/material";
+import InputField from "./common/InputField";
+import SelectField from "./common/SelectField";
+import Form from "./common/Form";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box>
+      <Typography variant="h1">
+        Wallet Control
+      </Typography>
+      <Box>
+        <Typography variant="h3"> Form </Typography>
+        <Form>
+          <InputField
+            helperText="Specify the expense/income name"
+            label="Text label"
+            type="text"
+            name="item"
+            placeholder="Text label"
+          />
+          <SelectField
+            helperText="Choose category"
+            label="Category"
+            name="select"
+            options={["raz", "dwa"]}
+          />
+        </Form>
+      </Box>
+      <Typography variant="h3">
+
+        List
+      </Typography>
+    </Box>
   );
 }
 
