@@ -10,14 +10,26 @@ export const useFormBudget = () => {
         description: '',
         category: '',
         variant: '',
+        amount: '',
+        date: '',
     });
 
-    const { description, category, variant } = fields;
+    const { description, category, variant, amount, date } = fields;
+
+    const formattedDate = new Date(date).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' });
+
+    const formattedAmount = Number(amount).toFixed(2);
+
+    const validationAmount = (event) => {
+        if (event.key === "-") {
+            event.preventDefault();
+        }
+    };
 
     const addItem = () => {
-        const newItem = { description: description, category: category, variant: variant, id: nanoid() };
+        const newItem = { description: description, category: category, variant: variant, amount: formattedAmount, date: formattedDate, id: nanoid() };
         setListItems(prevItem => ([...prevItem, newItem]));
-        console.log(description, category, variant);
+        console.log(description, category, variant, formattedAmount, formattedDate);
     };
 
     const removeItem = (id) => {
@@ -39,10 +51,12 @@ export const useFormBudget = () => {
         setFields({
             description: '',
             category: '',
-            variant: ''
+            variant: '',
+            amount: '',
+            date: '',
         });
     };
 
-    return { handleSubmit, listItems, removeItem, fields, handleFieldChange }
+    return { handleSubmit, listItems, removeItem, fields, handleFieldChange, validationAmount }
 };
 
