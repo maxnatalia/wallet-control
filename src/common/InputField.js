@@ -1,8 +1,9 @@
-import { FormControl, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
+import FormControlStyled from "./FormControlStyled";
 
-const InputField = ({ helperText, label, type, placeholder, name, onChange, value, required, checked }) => {
+const InputField = ({ helperText, label, type, placeholder, name, onChange, value, required, checked, onKeyDown }) => {
     return (
-        <FormControl fullWidth>
+        <FormControlStyled>
             <TextField
                 variant="filled"
                 helperText={helperText}
@@ -13,8 +14,10 @@ const InputField = ({ helperText, label, type, placeholder, name, onChange, valu
                 onChange={onChange}
                 value={value}
                 required={required}
-                checked={checked} />
-        </FormControl>
+                checked={checked}
+                onKeyDown={onKeyDown}
+            />
+        </FormControlStyled>
     )
 };
 
