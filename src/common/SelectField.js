@@ -1,15 +1,19 @@
-import { InputLabel, MenuItem, Select, FormHelperText, FormControl } from "@mui/material";
+import { InputLabel, MenuItem, Select, FormHelperText } from "@mui/material";
+import FormControlStyled from "./FormControlStyled";
 
 const SelectField = ({ label, onChange, name, value, required, options, helperText }) => {
     return (
-        <FormControl>
-            <InputLabel>{label}</InputLabel>
+        <FormControlStyled >
+            <InputLabel>
+                {label}
+            </InputLabel>
             <Select
                 variant="filled"
                 onChange={onChange}
                 name={name}
                 value={value}
-                required={required}>
+                required={required}
+            >
                 {options.map((option, index) => (
                     <MenuItem
                         value={option}
@@ -19,7 +23,7 @@ const SelectField = ({ label, onChange, name, value, required, options, helperTe
                 ))}
             </Select>
             <FormHelperText>{helperText}</FormHelperText>
-        </FormControl>
+        </FormControlStyled>
     )
 };
 
