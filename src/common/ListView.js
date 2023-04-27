@@ -38,7 +38,7 @@ const ListView = ({ listItems, removeItem }) => {
                                     </IconButton>
                                 </Tooltip>
                             </TableCell>
-                            <TableCell align="left">{row.variant}</TableCell>
+                            <TableCell align="left">{(row.variant.toUpperCase())}</TableCell>
                             <TableCell align="left">{row.description}</TableCell>
                             <TableCell align="left">{row.date}</TableCell>
                             <TableCell align="left">{formatPrice(row.amount, row.currency)}</TableCell>
