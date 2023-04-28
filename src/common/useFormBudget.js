@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormFields } from "../utils/useFormFields";
 import { nanoid } from "nanoid";
+import { useLocalStorage } from "../utils/useLocalStorage";
 
 export const useFormBudget = () => {
-    const [listItems, setListItems] = useState([]);
-    // const [result, setResult] = useState(0);
+    const [listItems, setListItems] = useLocalStorage("listItems");
+    const [totalAmount, setTotalAmount] = useState(0);
 
     const { fields, setFields, handleFieldChange } = useFormFields({
         description: '',
@@ -12,9 +13,10 @@ export const useFormBudget = () => {
         variant: '',
         amount: '',
         date: '',
+        currency: 'PLN',
     });
 
-    const { description, category, variant, amount, date } = fields;
+    const { description, category, variant, amount, date, currency } = fields;
 
     const formattedDate = new Date(date).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
@@ -27,26 +29,24 @@ export const useFormBudget = () => {
     };
 
     const addItem = () => {
-        const newItem = { description: description, category: category, variant: variant, amount: formattedAmount, date: formattedDate, id: nanoid() };
+        const newItem = {
+            description: description,
+            category: category,
+            variant: variant,
+            amount: formattedAmount,
+            date: formattedDate,
+            currency: currency,
+            id: nanoid(),
+        };
         setListItems(prevItem => ([...prevItem, newItem]));
-        console.log(description, category, variant, formattedAmount, formattedDate);
     };
 
     const removeItem = (id) => {
         setListItems(listItems.filter((item) => item.id !== id));
     };
 
-    // const handleResult = () => {
-    //     if (category === "expense") {
-    //         setResult(prevResult => (prevResult - Number(amount)));
-    //     } else {
-    //         setResult(prevResult => (prevResult + Number(amount)));
-    //     }
-    // };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        // handleResult();
         addItem();
         setFields({
             description: '',
@@ -54,9 +54,25 @@ export const useFormBudget = () => {
             variant: '',
             amount: '',
             date: '',
+            currency: currency,
         });
     };
 
-    return { handleSubmit, listItems, removeItem, fields, handleFieldChange, validationAmount }
+    const calculateTotalAmount = (items) => {
+        return items.reduce((accumulator, currentItem) => {
+            if (currentItem.variant === "expense") {
+                return accumulator - Number(currentItem.amount);
+            } else {
+                return accumulator + Number(currentItem.amount);
+            }
+        }, 0);
+    };
+
+    useEffect(() => {
+        const total = calculateTotalAmount(listItems);
+        setTotalAmount(total);
+    }, [listItems]);
+
+    return { handleSubmit, listItems, removeItem, fields, handleFieldChange, validationAmount, totalAmount }
 };
 
