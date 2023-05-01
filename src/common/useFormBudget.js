@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useFormFields } from "../utils/useFormFields";
 import { nanoid } from "nanoid";
 import { useLocalStorage } from "../utils/useLocalStorage";
+import { currencyData } from "../utils/data";
 
 export const useFormBudget = () => {
-    const [listItems, setListItems] = useLocalStorage("listItems");
+    const [currency, setCurrency] = useLocalStorage("currency", currencyData[0]);
+    const [listItems, setListItems] = useLocalStorage("listItems", []);
     const [totalAmount, setTotalAmount] = useState(0);
 
     const { fields, setFields, handleFieldChange } = useFormFields({
@@ -13,10 +15,9 @@ export const useFormBudget = () => {
         variant: '',
         amount: '',
         date: '',
-        currency: 'PLN',
     });
 
-    const { description, category, variant, amount, date, currency } = fields;
+    const { description, category, variant, amount, date } = fields;
 
     const formattedDate = new Date(date).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
@@ -35,9 +36,9 @@ export const useFormBudget = () => {
             variant: variant,
             amount: formattedAmount,
             date: formattedDate,
-            currency: currency,
             id: nanoid(),
         };
+        console.log(newItem)
         setListItems(prevItem => ([...prevItem, newItem]));
     };
 
@@ -54,8 +55,11 @@ export const useFormBudget = () => {
             variant: '',
             amount: '',
             date: '',
-            currency: currency,
         });
+    };
+
+    const handleCurrency = (newCurrency) => {
+        setCurrency(newCurrency);
     };
 
     const calculateTotalAmount = (items) => {
@@ -73,6 +77,6 @@ export const useFormBudget = () => {
         setTotalAmount(total);
     }, [listItems]);
 
-    return { handleSubmit, listItems, removeItem, fields, handleFieldChange, validationAmount, totalAmount }
+    return { handleSubmit, listItems, removeItem, fields, handleFieldChange, validationAmount, totalAmount, currency, handleCurrency }
 };
 
