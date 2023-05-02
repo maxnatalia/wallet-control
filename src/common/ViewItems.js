@@ -7,7 +7,7 @@ import GridView from "./GridView";
 import ButtonStyled from "./ButtonStyled";
 import ListView from "./ListView";
 
-const ViewItems = ({ listItems, removeItem }) => {
+const ViewItems = ({ listItems, removeItem, currency }) => {
     const [view, setView] = useState(false);
     const [open, setOpen] = useState(false);
 
@@ -50,8 +50,8 @@ const ViewItems = ({ listItems, removeItem }) => {
                 />
             </ButtonGroup>
             {view
-                ? <GridView listItems={listItems} removeItem={removeItem} />
-                : <ListView listItems={listItems} removeItem={removeItem} />
+                ? <GridView listItems={listItems} removeItem={removeItem} currency={currency} />
+                : <ListView listItems={listItems} removeItem={removeItem} currency={currency} />
             }
             <Snackbar
                 open={open}
