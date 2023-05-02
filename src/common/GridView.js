@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import GridItem from "./GridItem";
 
-const GridView = ({ listItems, removeItem }) => {
+const GridView = ({ listItems, removeItem, currency }) => {
 
     return (
         <Grid container spacing={2}>
@@ -12,7 +12,7 @@ const GridView = ({ listItems, removeItem }) => {
                     category={item.category}
                     variant={item.variant}
                     amount={item.amount}
-                    currency={item.currency}
+                    currency={currency}
                     date={item.date}
                     onClick={() => removeItem(item.id)}
                 />
