@@ -1,14 +1,14 @@
 import Form from "./Form";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RadioField from "./RadioField";
-import { categoriesData, radioData, currencyData } from "../utils/data";
+import { categoriesData, radioData } from "../utils/data";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
 import ButtonStyled from "./ButtonStyled";
 import { Typography, Box } from "@mui/material";
 
 const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount }) => {
-    const { description, category, variant, amount, date, currency } = fields;
+    const { description, category, variant, amount, date } = fields;
 
     return (
         <Box>
@@ -22,6 +22,11 @@ const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount 
                     options={radioData}
                     onChange={handleFieldChange}
                 />
+                {/* <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                    <ButtonStyled buttonText={"PLN"} />
+                    <ButtonStyled buttonText={"USD"} />
+                    <ButtonStyled buttonText={"EUR"} />
+                </Box> */}
                 <SelectField
                     helperText="Choose category"
                     label="Category"
@@ -52,15 +57,15 @@ const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount 
                     onKeyDown={validationAmount}
                     required
                 />
-                <SelectField
-                    helperText="Choose currency"
+                {/* <SelectField
+                    helperText="Choose the currency"
                     label="Currency"
                     name="currency"
                     options={currencyData}
                     onChange={handleFieldChange}
                     value={currency}
                     required
-                />
+                /> */}
                 <InputField
                     helperText="Choose the date"
                     type="date"
