@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AppBar, IconButton, Switch, Toolbar, Typography, Tooltip, Menu, MenuItem, Fade } from '@mui/material'
+import { AppBar, IconButton, Switch, Toolbar, Typography, Tooltip, Menu, MenuItem, Fade, Box } from '@mui/material'
 import WalletIcon from '@mui/icons-material/Wallet';
 import PaidIcon from '@mui/icons-material/Paid';
 import { useTodayDate } from '../utils/useTodayDate';
@@ -22,7 +22,11 @@ const Navigation = ({ handleModeChange, darkMode, currency, handleCurrency }) =>
 
     return (
         <AppBar position="sticky" >
-            <Toolbar>
+            <Toolbar
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>
                 <IconButton
                     size="large"
                     edge="start"
@@ -32,11 +36,27 @@ const Navigation = ({ handleModeChange, darkMode, currency, handleCurrency }) =>
                 >
                     <WalletIcon />
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{ display: { xs: 'none', md: 'block' } }}>
+                <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{
+                        display: {
+                            xs: 'none',
+                            md: 'block'
+                        }
+                    }}>
                     Wallet Control
                 </Typography>
-                <Tooltip title="Change the currency" placement="right-start">
-                    <div>
+                <Tooltip
+                    title="Change the currency"
+                    placement="right-start">
+                    <Box
+                        sx={{
+                            padding: {
+                                xs: 0,
+                                md: 2,
+                            }
+                        }}>
                         <IconButton
                             id="fade-button"
                             aria-controls={open ? 'fade-menu' : undefined}
@@ -46,7 +66,10 @@ const Navigation = ({ handleModeChange, darkMode, currency, handleCurrency }) =>
                         >
                             <PaidIcon sx={{ color: "white" }} />
                         </IconButton>
-                        <Typography variant='h6' component="span">
+                        <Typography
+                            variant='h6'
+                            component="span"
+                        >
                             {currency}
                         </Typography>
                         <Menu
@@ -60,15 +83,26 @@ const Navigation = ({ handleModeChange, darkMode, currency, handleCurrency }) =>
                             TransitionComponent={Fade}
                         >
                             {currencyData.map((item) => (
-                                <MenuItem key={item} onClick={() => { handleClose(); handleCurrency(item); }}>
+                                <MenuItem
+                                    key={item}
+                                    onClick={() => {
+                                        handleClose();
+                                        handleCurrency(item);
+                                    }}>
                                     {item}
                                 </MenuItem>
                             ))}
                         </Menu>
-                    </div>
+                    </Box>
                 </Tooltip>
                 <Tooltip title="Today's date">
-                    <Typography variant="h6" component="span" sx={{ flexGrow: 1 }} textAlign="center" color="inherit">
+                    <Typography
+                        variant="h6"
+                        component="span"
+                        textAlign="center"
+                        color="inherit"
+                        flex={1}
+                    >
                         {todayDate}
                     </Typography>
                 </Tooltip>
