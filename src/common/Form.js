@@ -1,12 +1,10 @@
-import { Card, CardContent } from '@mui/material'
+import { Box } from '@mui/material'
 
 const Form = ({ children, onSubmit }) => {
     return (
-        <Card variant="outlined" sx={{ maxWidth: 500 }}>
-            <CardContent>
-                <form onSubmit={onSubmit} fullWidth>{children}</form>
-            </CardContent>
-        </Card>
+        <Box variant="outlined">
+            <form onSubmit={onSubmit}>{children}</form>
+        </Box>
     )
 };
 
