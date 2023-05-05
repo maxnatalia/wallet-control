@@ -1,30 +1,41 @@
-import { useState } from "react";
-import { Alert, ButtonGroup, Snackbar, Typography } from "@mui/material";
+import { ButtonGroup, Typography } from "@mui/material";
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-// import CloseIcon from '@mui/icons-material/Close';
 import GridViewIcon from '@mui/icons-material/GridView';
 import GridView from "./GridView";
 import ButtonStyled from "./ButtonStyled";
 import ListView from "./ListView";
+import { useLocalStorage } from "../utils/useLocalStorage";
+import MessageAlert from "./MessageAlert";
+import { useMessageAlert } from "./useMessageAlert";
+import SearchFields from "./SearchFields";
+import ClearIcon from '@mui/icons-material/Clear';
 
-const ViewItems = ({ listItems, removeItem, currency }) => {
-    const [view, setView] = useState(false);
-    const [open, setOpen] = useState(false);
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+const ViewItems = ({
+    listItems,
+    removeItem,
+    editItem,
+    currency,
+    handleSearch,
+    fields,
+    displayDataItems,
+    handleShowExpense,
+    handleShowIncome,
+    handleShowAll,
+    handleClearAll
+}) => {
+    const { handleOpen, handleClose, open } = useMessageAlert();
+    const [view, setView] = useLocalStorage("view", false);
 
     const handleGridView = () => {
         if (listItems.length === 0) {
-            setOpen(true);
+            handleOpen();
         }
         setView(true);
     };
 
     const handleListView = () => {
         if (listItems.length === 0) {
-            setOpen(true);
+            handleOpen();
         }
         setView(false);
     };
@@ -49,21 +60,27 @@ const ViewItems = ({ listItems, removeItem, currency }) => {
                     onClick={handleListView}
                 />
             </ButtonGroup>
+            <SearchFields
+                fields={fields}
+                handleShowExpense={handleShowExpense}
+                handleShowIncome={handleShowIncome}
+                handleShowAll={handleShowAll}
+                handleSearch={handleSearch}
+            />
             {view
-                ? <GridView listItems={listItems} removeItem={removeItem} currency={currency} />
-                : <ListView listItems={listItems} removeItem={removeItem} currency={currency} />
+                ? <GridView removeItem={removeItem} editItem={editItem} currency={currency} displayDataItems={displayDataItems} />
+                : <ListView removeItem={removeItem} editItem={editItem} currency={currency} displayDataItems={displayDataItems} />
             }
-            <Snackbar
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-            // action={
-            //     <IconButton size="small" color="red" onClick={handleClose}>
-            //         <CloseIcon fontSize="small" />
-            //     </IconButton>
-            // }
-            ><Alert severity="info">The wallet is empty. Add your first transactions to start tracking your finances</Alert>
-            </Snackbar>
+            <MessageAlert
+                openMessage={open}
+                handleClose={handleClose}
+                textAlert={"The wallet is empty. Add your first transactions to start tracking your finances"}
+            />
+            {listItems.length !== 0 && <ButtonStyled
+                buttonText={"Clear All"}
+                icon={<ClearIcon />}
+                onClick={handleClearAll}
+            />}
         </>
     )
 };
