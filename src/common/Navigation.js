@@ -106,7 +106,7 @@ const Navigation = ({ handleModeChange, darkMode, currency, handleCurrency }) =>
                         {todayDate}
                     </Typography>
                 </Tooltip>
-                <Tooltip title={darkMode === "light" ? "Switch to dark mode" : "Switch to light mode"}>
+                <Tooltip title={!darkMode ? "Switch to dark mode" : "Switch to light mode"}>
                     <Switch
                         color="default"
                         checked={darkMode}
