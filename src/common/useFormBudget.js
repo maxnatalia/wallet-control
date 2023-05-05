@@ -8,6 +8,7 @@ export const useFormBudget = () => {
     const [currency, setCurrency] = useLocalStorage("currency", currencyData[0]);
     const [listItems, setListItems] = useLocalStorage("listItems", []);
     const [totalAmount, setTotalAmount] = useState(0);
+    const [editableId, setEditableId] = useState(null);
 
     const { fields, setFields, handleFieldChange } = useFormFields({
         description: '',
@@ -15,11 +16,12 @@ export const useFormBudget = () => {
         variant: '',
         amount: '',
         date: '',
+        search: ''
     });
 
-    const { description, category, variant, amount, date } = fields;
+    const { description, category, variant, amount, date, search } = fields;
 
-    const formattedDate = new Date(date).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    // const formattedDate = new Date(date).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
     const formattedAmount = Number(amount).toFixed(2);
 
@@ -29,16 +31,30 @@ export const useFormBudget = () => {
         }
     };
 
+    const searchData = (listItems, search, variant) => {
+        if ((!search || search === "") && (!variant || variant === "")) {
+            return listItems;
+        } else {
+            return listItems.filter(({ description, variant: itemVariant }) => {
+                const includesDescription = description && description.toUpperCase().includes(search.trim().toUpperCase());
+                const matchesVariant = !variant || (itemVariant && variant === itemVariant);
+                return includesDescription && matchesVariant;
+            });
+        }
+    };
+
+    const displayDataItems = searchData(listItems, search, variant);
+
     const addItem = () => {
         const newItem = {
             description: description,
             category: category,
             variant: variant,
             amount: formattedAmount,
-            date: formattedDate,
+            date: date,
+            search: search,
             id: nanoid(),
         };
-        console.log(newItem)
         setListItems(prevItem => ([...prevItem, newItem]));
     };
 
@@ -46,15 +62,34 @@ export const useFormBudget = () => {
         setListItems(listItems.filter((item) => item.id !== id));
     };
 
+    const editItem = (id) => {
+        const editableData = listItems.find((editableData) => editableData.id === id);
+        setFields({ ...editableData });
+        setEditableId(id);
+    };
+
+    const updateItem = () => {
+        const updatedData = listItems.map((item) =>
+            item.id === editableId ? { id: editableId, ...fields } : item
+        );
+        setListItems(updatedData);
+        setEditableId(null);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        addItem();
+        if (editableId === null) {
+            addItem();
+        } else {
+            updateItem();
+        }
         setFields({
             description: '',
             category: '',
             variant: '',
             amount: '',
             date: '',
+            search: ''
         });
     };
 
@@ -72,11 +107,53 @@ export const useFormBudget = () => {
         }, 0);
     };
 
+    const handleSearch = (e) => {
+        setFields((prevFields) => ({
+            ...prevFields,
+            search: e.target.value,
+        }));
+    };
+
+
+    const handleShowIncome = () => {
+        setFields((prevFields) => ({ ...prevFields, variant: 'income' }));
+    };
+
+    const handleShowExpense = () => {
+        setFields((prevFields) => ({ ...prevFields, variant: 'expense' }));
+    };
+
+    const handleShowAll = () => {
+        setFields((prevFields) => ({
+            ...prevFields,
+            variant: '',
+        }));
+    };
+
+    // const filteredItems = items.filter(item => item.type === fields.type);
+
     useEffect(() => {
         const total = calculateTotalAmount(listItems);
         setTotalAmount(total);
     }, [listItems]);
 
-    return { handleSubmit, listItems, removeItem, fields, handleFieldChange, validationAmount, totalAmount, currency, handleCurrency }
+    return {
+        handleSubmit,
+        listItems,
+        removeItem,
+        fields,
+        handleFieldChange,
+        validationAmount,
+        totalAmount,
+        currency,
+        handleCurrency,
+        editItem,
+        editableId,
+        handleSearch,
+        displayDataItems,
+        handleShowIncome,
+        handleShowExpense,
+        handleShowAll
+    }
 };
 
