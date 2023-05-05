@@ -93,6 +93,10 @@ export const useFormBudget = () => {
         });
     };
 
+    const handleClearAll = () => {
+        setListItems([])
+    };
+
     const handleCurrency = (newCurrency) => {
         setCurrency(newCurrency);
     };
@@ -153,7 +157,8 @@ export const useFormBudget = () => {
         displayDataItems,
         handleShowIncome,
         handleShowExpense,
-        handleShowAll
+        handleShowAll,
+        handleClearAll
     }
 };
 
