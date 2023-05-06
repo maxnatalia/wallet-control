@@ -111,31 +111,6 @@ export const useFormBudget = () => {
         }, 0);
     };
 
-    const handleSearch = (e) => {
-        setFields((prevFields) => ({
-            ...prevFields,
-            search: e.target.value,
-        }));
-    };
-
-
-    const handleShowIncome = () => {
-        setFields((prevFields) => ({ ...prevFields, variant: 'income' }));
-    };
-
-    const handleShowExpense = () => {
-        setFields((prevFields) => ({ ...prevFields, variant: 'expense' }));
-    };
-
-    const handleShowAll = () => {
-        setFields((prevFields) => ({
-            ...prevFields,
-            variant: '',
-        }));
-    };
-
-    // const filteredItems = items.filter(item => item.type === fields.type);
-
     useEffect(() => {
         const total = calculateTotalAmount(listItems);
         setTotalAmount(total);
@@ -153,11 +128,12 @@ export const useFormBudget = () => {
         handleCurrency,
         editItem,
         editableId,
-        handleSearch,
+        setFields,
+        // handleSearch,
         displayDataItems,
-        handleShowIncome,
-        handleShowExpense,
-        handleShowAll,
+        // handleShowIncome,
+        // handleShowExpense,
+        // handleShowAll,
         handleClearAll
     }
 };
