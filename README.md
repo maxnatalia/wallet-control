@@ -1,6 +1,10 @@
 # 💰Wallet Control - A Simple and User-Friendly Budget Management Application
 
-Wallet Control is a responsive web application developed using React JS, Material UI, and hooks. It provides users with an easy-to-use interface to manage their daily expenses, keep track of their financial activities, and monitor their budget.
+Wallet Control is a responsive web application developed using React JS, Material UI, and hooks.
+
+This application is a simple tool for managing your personal finances. It allows you to track your expenses and income, choose your preferred currency, and view your balance in real-time.
+
+With Wallet Control, you can easily keep track of your spending and saving habits, set financial goals, and stay on top of your finances.
 
 ## 🔎Demo:
 
@@ -8,12 +12,15 @@ Wallet Control is a responsive web application developed using React JS, Materia
 
 ## 📌Features:
 
-- **List View**: Users can choose between different types of lists such as transactions, expenses, and incomes to have a better overview of their financial activities.
-- **Currency Selection**: Users can choose their preferred currency to keep track of their expenses and monitor their budget accordingly.
-- **Current Balance**: The application calculates the current balance based on the user's income and expenses and displays it on the dashboard.
-- **LocaleStorage**: Users can store their wallet
-- **Customizable**: The application allows users to delete any items they no longer need
-- **Future Additions**: In the future, Wallet Control will include additional features such as filtering, editing data, customization options such as choosing between light or dark mode and more.
+- **Add New Items**: Add new items to your expense or income lists with just a few clicks.
+- **Local Storage**: All your data is stored locally, so you can access it even when you're offline.
+- **Theming**: Choose from a range of color themes to customize the look and feel of the app.
+- **Expense and Income Lists**: Create and manage lists of your expenses and income, and view them in a variety of ways, including **grid and table views**.
+- **Currency Selector**: Choose your preferred currency from a list of available options.
+- **Search and Filter**: Quickly search for specific items in your expense and income lists, and filter them by variant: incomes/expenses
+- **Edit and Delete**: Easily edit or delete any item in your expense or income lists.
+- **Balance Calculation**: Wallet Control automatically calculates your balance based on your income and expenses.
+- **Future Additions**: In the future, Wallet Control will include additional features such as more filtering and more...
 
 ## 🛠️Technologies used:
 
