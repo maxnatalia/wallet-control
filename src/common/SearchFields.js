@@ -3,11 +3,32 @@ import InputField from "./InputField";
 import ButtonStyled from "./ButtonStyled";
 import AllInboxIcon from '@mui/icons-material/AllInbox';
 import { green, red } from "@mui/material/colors";
+import { useMessageAlert } from "./useMessageAlert";
+import MessageAlert from "./MessageAlert";
 
-const SearchFields = ({ fields, handleSearch, handleShowAll, handleShowExpense, handleShowIncome }) => {
+const SearchFields = ({ fields, setFields, listItems }) => {
     const { search } = fields;
+    const { handleOpen, handleClose, open } = useMessageAlert();
+
+    const handleSearch = (e) => {
+        setFields((prevFields) => ({
+            ...prevFields,
+            search: e.target.value,
+        }));
+    };
+
+    const handleShowVariant = (variant) => {
+        if (variant === '' && listItems.length === 0) {
+            handleOpen();
+        } else if (variant === '' || listItems.some(item => item.variant === variant)) {
+            setFields((prevFields) => ({ ...prevFields, variant }));
+        } else {
+            handleOpen();
+        }
+    };
+
     return (
-        <>
+        <Box sx={{ pb: 2 }}>
             <InputField
                 helperText="Search description..."
                 label="Search description..."
@@ -28,21 +49,26 @@ const SearchFields = ({ fields, handleSearch, handleShowAll, handleShowExpense, 
             >
                 <ButtonStyled
                     buttonText="Incomes"
-                    onClick={() => handleShowIncome()}
+                    onClick={() => handleShowVariant('income')}
                     icon={<Avatar sx={{ bgcolor: green[500] }}>I</Avatar>}
                 />
                 <ButtonStyled
                     buttonText="Expenses"
-                    onClick={() => handleShowExpense()}
+                    onClick={() => handleShowVariant('expense')}
                     icon={<Avatar sx={{ bgcolor: red[500] }}>E</Avatar>}
                 />
                 <ButtonStyled
                     buttonText="All Incomes/Expenses"
-                    onClick={() => handleShowAll()}
+                    onClick={() => handleShowVariant('')}
                     icon={<AllInboxIcon />}
                 />
             </Box>
-        </>
+            <MessageAlert
+                textAlert={"Sorry, No items to display in this list"}
+                openMessage={open}
+                handleClose={handleClose}
+            />
+        </Box>
     )
 };
 
