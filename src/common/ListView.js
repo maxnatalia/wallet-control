@@ -1,18 +1,20 @@
 import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Avatar } from "@mui/material";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import EditIcon from '@mui/icons-material/Edit';
 import { green, red } from "@mui/material/colors";
 import { formatPrice } from "../utils/formatPrice";
 
-const ListView = ({ listItems, removeItem, currency }) => {
+const ListView = ({ displayDataItems, removeItem, editItem, currency }) => {
 
     return (
         <TableContainer component={Paper} sx={{ mb: 3 }}>
             <Table sx={{ minWidth: 650 }}>
-                {listItems.length !== 0 &&
+                {displayDataItems.length !== 0 &&
                     (<TableHead>
                         <TableRow>
                             <TableCell>Category</TableCell>
                             <TableCell>Remove</TableCell>
+                            <TableCell>Edit</TableCell>
                             <TableCell align="left">Income/Expense</TableCell>
                             <TableCell align="left">Description</TableCell>
                             <TableCell align="left">Date</TableCell>
@@ -21,7 +23,7 @@ const ListView = ({ listItems, removeItem, currency }) => {
                     </TableHead>
                     )}
                 <TableBody>
-                    {listItems.map((row) => (
+                    {displayDataItems.map((row) => (
                         <TableRow key={row.id}>
                             <TableCell component="th" scope="row">
                                 {row.category}
@@ -30,6 +32,13 @@ const ListView = ({ listItems, removeItem, currency }) => {
                                 <Tooltip title="Remove item">
                                     <IconButton aria-label="Remove item" onClick={() => removeItem(row.id)}>
                                         <DeleteForeverOutlinedIcon color="primary" />
+                                    </IconButton>
+                                </Tooltip>
+                            </TableCell>
+                            <TableCell align="left">
+                                <Tooltip title="Edit item">
+                                    <IconButton aria-label="Edit item" onClick={() => editItem(row.id)}>
+                                        <EditIcon color="primary" />
                                     </IconButton>
                                 </Tooltip>
                             </TableCell>
