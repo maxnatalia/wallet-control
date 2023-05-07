@@ -15,12 +15,9 @@ const ViewItems = ({
     removeItem,
     editItem,
     currency,
-    handleSearch,
     fields,
+    setFields,
     displayDataItems,
-    handleShowExpense,
-    handleShowIncome,
-    handleShowAll,
     handleClearAll
 }) => {
     const { handleOpen, handleClose, open } = useMessageAlert();
@@ -62,10 +59,8 @@ const ViewItems = ({
             </ButtonGroup>
             <SearchFields
                 fields={fields}
-                handleShowExpense={handleShowExpense}
-                handleShowIncome={handleShowIncome}
-                handleShowAll={handleShowAll}
-                handleSearch={handleSearch}
+                setFields={setFields}
+                listItems={listItems}
             />
             {view
                 ? <GridView removeItem={removeItem} editItem={editItem} currency={currency} displayDataItems={displayDataItems} />
