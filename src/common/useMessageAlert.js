@@ -2,8 +2,10 @@ import { useState } from "react";
 
 export const useMessageAlert = () => {
     const [open, setOpen] = useState(false);
+    const [textAlert, setTextAlert] = useState('');
 
-    const handleOpen = () => {
+    const handleOpen = (textAlert) => {
+        setTextAlert(textAlert);
         setOpen(true);
     };
 
@@ -11,5 +13,5 @@ export const useMessageAlert = () => {
         setOpen(false);
     };
 
-    return { open, setOpen, handleClose, handleOpen }
+    return { open, setOpen, handleClose, handleOpen, textAlert }
 };
