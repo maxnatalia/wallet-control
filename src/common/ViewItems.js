@@ -5,10 +5,10 @@ import GridView from "./GridView";
 import ButtonStyled from "./ButtonStyled";
 import ListView from "./ListView";
 import { useLocalStorage } from "../utils/useLocalStorage";
-import MessageAlert from "./MessageAlert";
 import { useMessageAlert } from "./useMessageAlert";
 import SearchFields from "./SearchFields";
 import ClearIcon from '@mui/icons-material/Clear';
+import MessageAlert from "./MessageAlert";
 
 const ViewItems = ({
     listItems,
@@ -20,19 +20,19 @@ const ViewItems = ({
     displayDataItems,
     handleClearAll
 }) => {
-    const { handleOpen, handleClose, open } = useMessageAlert();
+    const { handleOpen, open, handleClose, textAlert } = useMessageAlert();
     const [view, setView] = useLocalStorage("view", false);
 
     const handleGridView = () => {
         if (listItems.length === 0) {
-            handleOpen();
+            handleOpen("Sorry, there are no items in the list to display the grid view");
         }
         setView(true);
     };
 
     const handleListView = () => {
         if (listItems.length === 0) {
-            handleOpen();
+            handleOpen("Sorry, there are no items in the list to display the list view");
         }
         setView(false);
     };
@@ -69,8 +69,9 @@ const ViewItems = ({
             <MessageAlert
                 openMessage={open}
                 handleClose={handleClose}
-                textAlert={"The wallet is empty. Add your first transactions to start tracking your finances"}
+                textAlert={textAlert}
             />
+
             {listItems.length !== 0 && <ButtonStyled
                 buttonText={"Clear All"}
                 icon={<ClearIcon />}
