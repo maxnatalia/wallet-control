@@ -1,9 +1,7 @@
 
 import { Alert, Snackbar } from "@mui/material";
-// import { useMessageAlert } from "./useMessageAlert";
 
 const MessageAlert = ({ textAlert, handleClose, openMessage }) => {
-
 
     return (
         <>
