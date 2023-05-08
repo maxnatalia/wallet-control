@@ -1,10 +1,11 @@
 import { Grid, Card, CardActions, CardHeader, CardContent, Avatar, Typography } from "@mui/material";
 import ButtonStyled from "./ButtonStyled";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { green, red } from '@mui/material/colors';
 import { formatPrice } from "../utils/formatPrice";
 
-const GridItem = ({ description, category, onClick, variant, amount, date, currency }) => {
+const GridItem = ({ description, category, onClickRemove, onClickEdit, variant, amount, date, currency }) => {
 
     return (
         <Grid item xs={12} md={6}>
@@ -20,26 +21,43 @@ const GridItem = ({ description, category, onClick, variant, amount, date, curre
                         </Avatar>
                     }
                     title={
-                        <Typography variant="h4">
+                        <Typography
+                            variant="h4"
+                        >
                             {category}
                         </Typography>
                     }
                     subheader={
-                        <Typography variant="h6" component={"p"}>
+                        <Typography
+                            variant="h6"
+                            component={"p"}
+                        >
                             {date}
                         </Typography>
                     }
                 />
                 <CardContent>
-                    <Typography variant="h5" component={"p"}>
+                    <Typography
+                        variant="h5"
+                        component={"p"}
+                    >
                         {formatPrice(amount, currency)} - {description}
                     </Typography>
                 </CardContent>
-                <CardActions>
+                <CardActions
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between"
+                    }}>
                     <ButtonStyled
                         buttonText={"Remove"}
                         icon={<DeleteIcon />}
-                        onClick={onClick}
+                        onClick={onClickRemove}
+                    />
+                    <ButtonStyled
+                        buttonText={"Edit description"}
+                        icon={<EditIcon />}
+                        onClick={onClickEdit}
                     />
                 </CardActions>
             </Card>
