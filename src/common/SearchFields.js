@@ -8,7 +8,7 @@ import MessageAlert from "./MessageAlert";
 
 const SearchFields = ({ fields, setFields, listItems }) => {
     const { search } = fields;
-    const { handleOpen, handleClose, open } = useMessageAlert();
+    const { handleOpen, handleClose, open, textAlert } = useMessageAlert();
 
     const handleSearch = (e) => {
         setFields((prevFields) => ({
@@ -19,11 +19,11 @@ const SearchFields = ({ fields, setFields, listItems }) => {
 
     const handleShowVariant = (variant) => {
         if (variant === '' && listItems.length === 0) {
-            handleOpen();
+            handleOpen("Sorry, No items to display in this list");
         } else if (variant === '' || listItems.some(item => item.variant === variant)) {
             setFields((prevFields) => ({ ...prevFields, variant }));
         } else {
-            handleOpen();
+            handleOpen(`Sorry, there are no ${variant}s to display in the list`);
         }
     };
 
@@ -64,7 +64,7 @@ const SearchFields = ({ fields, setFields, listItems }) => {
                 />
             </Box>
             <MessageAlert
-                textAlert={"Sorry, No items to display in this list"}
+                textAlert={textAlert}
                 openMessage={open}
                 handleClose={handleClose}
             />
