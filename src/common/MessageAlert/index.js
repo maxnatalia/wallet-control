@@ -1,8 +1,7 @@
-
 import { Alert, Snackbar } from "@mui/material";
 
-const MessageAlert = ({ textAlert, handleClose, openMessage }) => {
-
+const MessageAlert = ({ textAlert, handleClose, openMessage, severity }) => {
+    const alertSeverity = severity ? severity : 'info';
     return (
         <>
             <Snackbar
@@ -11,7 +10,7 @@ const MessageAlert = ({ textAlert, handleClose, openMessage }) => {
                 onClose={handleClose}
             >
                 <Alert
-                    severity="info"
+                    severity={alertSeverity}
                 >
                     {textAlert}
                 </Alert>
