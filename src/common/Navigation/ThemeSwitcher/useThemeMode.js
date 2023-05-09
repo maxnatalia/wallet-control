@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { useLocalStorage } from "./useLocalStorage";
+import { useLocalStorage } from "../../../utils/useLocalStorage";
 
 const useThemeMode = () => {
     const [darkMode, setDarkMode] = useLocalStorage("themeMode", true);
