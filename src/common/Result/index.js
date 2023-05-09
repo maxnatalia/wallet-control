@@ -1,7 +1,7 @@
 import { Box, Tooltip, Typography } from '@mui/material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { blue, lightGreen, red } from '@mui/material/colors';
-import { formatPrice } from '../utils/formatPrice';
+import { formatPrice } from '../../utils/formatPrice';
 
 const Result = ({ totalAmount, currency }) => {
 
