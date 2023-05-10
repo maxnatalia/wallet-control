@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/wallet-control/static/js/main.6ad9122a.js",
+    "main.js": "/wallet-control/static/js/main.c5c602b2.js",
     "static/js/787.9bd8af04.chunk.js": "/wallet-control/static/js/787.9bd8af04.chunk.js",
     "index.html": "/wallet-control/index.html",
-    "main.6ad9122a.js.map": "/wallet-control/static/js/main.6ad9122a.js.map",
+    "main.c5c602b2.js.map": "/wallet-control/static/js/main.c5c602b2.js.map",
     "787.9bd8af04.chunk.js.map": "/wallet-control/static/js/787.9bd8af04.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.6ad9122a.js"
+    "static/js/main.c5c602b2.js"
   ]
 }
