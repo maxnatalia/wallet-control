@@ -1,19 +1,20 @@
-import Form from "./Form";
+import Form from "../common/Form";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import RadioField from "./RadioField";
-import { categoriesData, radioData } from "../utils/data";
-import InputField from "./InputField";
-import SelectField from "./SelectField";
-import ButtonStyled from "./ButtonStyled";
+import RadioField from "../common/RadioField";
+import { radioData } from "../common/utils/data";
+import InputField from "../common/InputField";
+import SelectField from "../common/SelectField";
+import ButtonStyled from "../common/ButtonStyled";
 import { Typography, Box } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
-const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount }) => {
+const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount, editableId, categories, darkMode }) => {
     const { description, category, variant, amount, date } = fields;
 
     return (
-        <Box>
-            <Typography variant="h2" textAlign={"center"}>
-                Manage your finances
+        <Box sx={{ mb: 4, mt: 6, p: 2, borderRadius: 2, backgroundColor: darkMode ? grey[800] : grey[200] }}>
+            <Typography variant="h3" textAlign={"center"}>
+                Manage finances
             </Typography>
             <Form onSubmit={handleSubmit}>
                 <RadioField
@@ -22,16 +23,11 @@ const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount 
                     options={radioData}
                     onChange={handleFieldChange}
                 />
-                {/* <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-                    <ButtonStyled buttonText={"PLN"} />
-                    <ButtonStyled buttonText={"USD"} />
-                    <ButtonStyled buttonText={"EUR"} />
-                </Box> */}
                 <SelectField
                     helperText="Choose category"
                     label="Category"
                     name="category"
-                    options={categoriesData}
+                    options={categories}
                     onChange={handleFieldChange}
                     value={category}
                     required
@@ -57,15 +53,6 @@ const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount 
                     onKeyDown={validationAmount}
                     required
                 />
-                {/* <SelectField
-                    helperText="Choose the currency"
-                    label="Currency"
-                    name="currency"
-                    options={currencyData}
-                    onChange={handleFieldChange}
-                    value={currency}
-                    required
-                /> */}
                 <InputField
                     helperText="Choose the date"
                     type="date"
@@ -74,7 +61,11 @@ const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount 
                     onChange={handleFieldChange}
                     required
                 />
-                <ButtonStyled buttonText={"Add to list"} type="submit" icon={<ControlPointIcon />} />
+                <ButtonStyled
+                    buttonText={editableId === null ? "Add to list" : "Save changes"}
+                    type="submit"
+                    icon={<ControlPointIcon />}
+                />
             </Form>
         </Box>
     )
