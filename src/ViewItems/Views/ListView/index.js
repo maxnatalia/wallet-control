@@ -1,15 +1,21 @@
 import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Avatar } from "@mui/material";
+import { green, red, grey } from "@mui/material/colors";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditIcon from '@mui/icons-material/Edit';
-import { green, red } from "@mui/material/colors";
-import { formatPrice } from "../utils/formatPrice";
+import { formatPrice } from "../../../common/utils/formatPrice";
 
-const ListView = ({ displayDataItems, removeItem, editItem, currency }) => {
+const ListView = ({ removeItem, editItem, currency, darkMode, listItems, filteredData }) => {
 
     return (
-        <TableContainer component={Paper} sx={{ mb: 3 }}>
+        <TableContainer
+            component={Paper}
+            sx={{
+                mb: 3,
+                backgroundColor: darkMode ? grey[700] : grey[200]
+            }}
+        >
             <Table sx={{ minWidth: 650 }}>
-                {displayDataItems.length !== 0 &&
+                {filteredData.length !== 0 &&
                     (<TableHead>
                         <TableRow>
                             <TableCell>Category</TableCell>
@@ -23,7 +29,7 @@ const ListView = ({ displayDataItems, removeItem, editItem, currency }) => {
                     </TableHead>
                     )}
                 <TableBody>
-                    {displayDataItems.map((row) => (
+                    {filteredData.map((row) => (
                         <TableRow key={row.id}>
                             <TableCell component="th" scope="row">
                                 {row.category}
