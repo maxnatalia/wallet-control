@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material";
-import { useLocalStorage } from "../../../utils/useLocalStorage";
+import { useLocalStorage } from "../../common/utils/useLocalStorage";
 
-const useThemeMode = () => {
+export const useThemeMode = () => {
     const [darkMode, setDarkMode] = useLocalStorage("themeMode", true);
 
     const handleModeChange = () => {
@@ -16,5 +16,3 @@ const useThemeMode = () => {
 
     return { darkMode, theme, handleModeChange }
 };
-
-export default useThemeMode;
