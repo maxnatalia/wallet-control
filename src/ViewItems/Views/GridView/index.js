@@ -1,11 +1,11 @@
 import { Grid } from "@mui/material";
 import GridItem from "./GridItem";
 
-const GridView = ({ removeItem, editItem, currency, displayDataItems }) => {
+const GridView = ({ removeItem, editItem, currency, darkMode, listItems, filteredData }) => {
 
     return (
         <Grid container spacing={2}>
-            {displayDataItems.map((item) => (
+            {filteredData.map((item) => (
                 <GridItem
                     key={item.id}
                     description={item.description}
@@ -16,6 +16,7 @@ const GridView = ({ removeItem, editItem, currency, displayDataItems }) => {
                     date={item.date}
                     onClickRemove={() => removeItem(item.id)}
                     onClickEdit={() => editItem(item.id)}
+                    darkMode={darkMode}
                 />
             ))}
         </Grid>

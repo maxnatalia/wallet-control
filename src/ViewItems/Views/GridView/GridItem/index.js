@@ -1,15 +1,15 @@
 import { Grid, Card, CardActions, CardHeader, CardContent, Avatar, Typography } from "@mui/material";
-import ButtonStyled from "./ButtonStyled";
+import { green, red, grey } from '@mui/material/colors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { green, red } from '@mui/material/colors';
-import { formatPrice } from "../utils/formatPrice";
+import ButtonStyled from "../../../../common/ButtonStyled";
+import { formatPrice } from "../../../../common/utils/formatPrice";
 
-const GridItem = ({ description, category, onClickRemove, onClickEdit, variant, amount, date, currency }) => {
+const GridItem = ({ description, category, onClickRemove, onClickEdit, variant, amount, date, currency, darkMode }) => {
 
     return (
         <Grid item xs={12} md={6}>
-            <Card sx={{ mb: 2 }}>
+            <Card sx={{ mb: 2, backgroundColor: darkMode ? grey[700] : grey[200] }}>
                 <CardHeader
                     avatar={variant === "expense"
                         ? <Avatar sx={{ bgcolor: red[500] }}>
@@ -55,7 +55,7 @@ const GridItem = ({ description, category, onClickRemove, onClickEdit, variant, 
                         onClick={onClickRemove}
                     />
                     <ButtonStyled
-                        buttonText={"Edit description"}
+                        buttonText={"Edit"}
                         icon={<EditIcon />}
                         onClick={onClickEdit}
                     />
