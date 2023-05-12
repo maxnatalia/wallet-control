@@ -1,9 +1,9 @@
-import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { useState } from "react";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import CategoryIcon from '@mui/icons-material/Category';
-import CategorySetup from "./CategorySetup";
+import CategorySetup from "../ManagementCategories/CategorySetup";
 
-const ManagementCategories = ({ handleAddCategory, categories, setCategories, listItems }) => {
+const ManagementCategories = ({ handleAddCategory, categories, setCategories, listItems, darkMode }) => {
     const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
@@ -49,6 +49,7 @@ const ManagementCategories = ({ handleAddCategory, categories, setCategories, li
                     setCategories={setCategories}
                     listItems={listItems}
                     handleAddCategory={handleAddCategory}
+                    darkMode={darkMode}
                 />
             }
         </>
