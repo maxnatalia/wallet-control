@@ -1,10 +1,10 @@
 import { RadioGroup, FormLabel, FormControlLabel, Radio } from "@mui/material"
 import FormControlStyled from "./FormControlStyled";
 
-const RadioField = ({ name, options, value, onChange }) => {
+const RadioField = ({ name, options, value, onChange, labelText }) => {
     return (
         <FormControlStyled>
-            <FormLabel>What do you want to add to the list?</FormLabel>
+            <FormLabel>{labelText}</FormLabel>
             <RadioGroup
                 row
                 name={name}
@@ -12,7 +12,14 @@ const RadioField = ({ name, options, value, onChange }) => {
                 onChange={onChange}
             >
                 {options.map((option) => (
-                    <FormControlLabel key={option.value} value={option.value} checked={value === option.value} control={<Radio />} label={option.label} required />
+                    <FormControlLabel
+                        key={option.value}
+                        value={option.value}
+                        checked={value === option.value}
+                        control={<Radio />}
+                        label={option.label}
+                        required
+                    />
                 ))}
             </RadioGroup>
         </FormControlStyled>
