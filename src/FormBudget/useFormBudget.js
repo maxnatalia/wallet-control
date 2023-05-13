@@ -3,12 +3,15 @@ import { nanoid } from "nanoid";
 import { useFormFields } from "../common/utils/useFormFields";
 import { useLocalStorage } from "../common/utils/useLocalStorage";
 import { currencyData } from "../common/utils/data";
+import { useMessageAlert } from "../common/MessageAlert/useMessageAlert";
 
 export const useFormBudget = () => {
+    const { handleOpen } = useMessageAlert();
     const [currency, setCurrency] = useLocalStorage("currency", currencyData[0]);
     const [listItems, setListItems] = useLocalStorage("listItems", []);
     const [totalAmount, setTotalAmount] = useState(0);
     const [editableId, setEditableId] = useState(null);
+    const [filteredData, setFilteredData] = useState(listItems);
 
     const { fields, setFields, handleFieldChange } = useFormFields({
         description: '',
@@ -16,10 +19,12 @@ export const useFormBudget = () => {
         variant: '',
         amount: '',
         date: '',
-        search: ''
+        searchDescription: '',
+        searchCategory: '',
+        searchVariant: ''
     });
 
-    const { description, category, variant, amount, date, search } = fields;
+    const { description, category, variant, amount, date, searchDescription, searchCategory, searchVariant } = fields;
 
     // const formattedDate = new Date(date).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
@@ -31,20 +36,6 @@ export const useFormBudget = () => {
         }
     };
 
-    const searchData = (listItems, search, variant) => {
-        if ((!search || search === "") && (!variant || variant === "")) {
-            return listItems;
-        } else {
-            return listItems.filter(({ description, variant: itemVariant }) => {
-                const includesDescription = description && description.toUpperCase().includes(search.trim().toUpperCase());
-                const matchesVariant = !variant || (itemVariant && variant === itemVariant);
-                return includesDescription && matchesVariant;
-            });
-        }
-    };
-
-    const displayDataItems = searchData(listItems, search, variant);
-
     const addItem = () => {
         const newItem = {
             description: description,
@@ -52,10 +43,12 @@ export const useFormBudget = () => {
             variant: variant,
             amount: formattedAmount,
             date: date,
-            search: search,
+            searchDescription: searchDescription,
+            searchCategory: searchCategory,
+            searchVariant: searchVariant,
             id: nanoid(),
         };
-        setListItems(prevItem => ([...prevItem, newItem]));
+        setListItems(listItems => ([...listItems, newItem]));
     };
 
     const removeItem = (id) => {
@@ -74,11 +67,12 @@ export const useFormBudget = () => {
         );
         setListItems(updatedData);
         setEditableId(null);
+        handleOpen("test");
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (editableId === null) {
+        if (!editableId) {
             addItem();
         } else {
             updateItem();
@@ -89,7 +83,9 @@ export const useFormBudget = () => {
             variant: '',
             amount: '',
             date: '',
-            search: ''
+            searchDescription: '',
+            searchCategory: '',
+            searchVariant: ''
         });
     };
 
@@ -111,14 +107,51 @@ export const useFormBudget = () => {
         }, 0);
     };
 
+    const handleResetFilters = () => {
+        setFields((prevFields) => ({
+            ...prevFields,
+            searchDescription: '',
+            searchCategory: '',
+            searchVariant: ''
+        }));
+    };
+
+    const searchData = (listItems, searchDescription, searchCategory, searchVariant) => {
+        if ((!searchDescription || searchDescription === "") && (!searchVariant || searchVariant === "") && (!searchCategory || searchCategory === "")) {
+            return listItems;
+        } else {
+            const filteredList = listItems.filter(({ description, variant, category }) => {
+                const includesDescription = description && description.toLowerCase().includes(searchDescription.toLowerCase());
+                const matchesSubCategory = !searchVariant || variant === searchVariant;
+                const matchesCategory = !searchCategory || category === searchCategory;
+                return includesDescription && matchesSubCategory && matchesCategory;
+            });
+            return filteredList;
+        }
+    };
+
+    useEffect(() => {
+        const filteredList = searchData(listItems, searchDescription, searchCategory, searchVariant);
+        setFilteredData(filteredList);
+    }, [listItems, searchDescription, searchCategory, searchVariant]);
+
     useEffect(() => {
         const total = calculateTotalAmount(listItems);
         setTotalAmount(total);
     }, [listItems]);
 
+    useEffect(() => {
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }, [editableId]);
+
     return {
         handleSubmit,
         listItems,
+        setListItems,
         removeItem,
         fields,
         handleFieldChange,
@@ -129,8 +162,9 @@ export const useFormBudget = () => {
         editItem,
         editableId,
         setFields,
-        displayDataItems,
-        handleClearAll
+        handleClearAll,
+        filteredData,
+        handleResetFilters
     }
 };
 
