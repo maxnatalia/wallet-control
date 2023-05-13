@@ -1,8 +1,8 @@
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import { useTodayDate } from '../../../utils/useTodayDate';
-import { useMessageAlert } from '../../MessageAlert/useMessageAlert';
-import MessageAlert from '../../MessageAlert';
+import { useTodayDate } from '../../common/utils/useTodayDate';
+import { useMessageAlert } from '../../common/MessageAlert/useMessageAlert';
+import MessageAlert from '../../common/MessageAlert';
 
 const Clock = () => {
     const { handleOpen, open, handleClose, textAlert } = useMessageAlert();
