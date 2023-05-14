@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import PaidIcon from '@mui/icons-material/Paid';
-import { currencyData } from '../../../utils/data';
 import { Box, IconButton, Menu, MenuItem, Tooltip, Typography, Fade } from '@mui/material';
+import PaidIcon from '@mui/icons-material/Paid';
+import { currencyData } from '../../common/utils/data';
 
 const ChangeCurrency = ({ currency, handleCurrency }) => {
     const [anchorEl, setAnchorEl] = useState(null);
