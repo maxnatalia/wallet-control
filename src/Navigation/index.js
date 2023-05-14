@@ -42,7 +42,7 @@ const Navigation = ({ handleModeChange, darkMode, currency, handleCurrency, hand
                 </Typography>
                 <Clock />
                 <ChangeCurrency currency={currency} handleCurrency={handleCurrency} />
-                <ManagementCategories handleAddCategory={handleAddCategory} categories={categories} setCategories={setCategories} listItems={listItems} />
+                <ManagementCategories handleAddCategory={handleAddCategory} categories={categories} setCategories={setCategories} listItems={listItems} darkMode={darkMode} />
                 <ThemeSwitcher darkMode={darkMode} handleModeChange={handleModeChange} />
             </Toolbar>
         </AppBar >
