@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { Box, IconButton, List, ListItem, ListItemText } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
-import Form from '../../../Form';
-import InputField from '../../../InputField';
-import ButtonStyled from '../../../ButtonStyled';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
-import MessageAlert from '../../../MessageAlert';
-import { useMessageAlert } from '../../../MessageAlert/useMessageAlert';
+import Form from '../../../common/Form';
+import InputField from '../../../common/InputField';
+import ButtonStyled from '../../../common/ButtonStyled';
+import MessageAlert from '../../../common/MessageAlert';
+import { useMessageAlert } from '../../../common/MessageAlert/useMessageAlert';
 
-const CategorySetup = ({ handleCloseWindow, categories, setCategories, listItems, handleAddCategory }) => {
+const CategorySetup = ({ handleCloseWindow, categories, setCategories, listItems, handleAddCategory, darkMode }) => {
     const { handleOpen, handleClose, open, textAlert } = useMessageAlert();
     const [valueCat, setValueCat] = useState('');
 
@@ -39,9 +39,14 @@ const CategorySetup = ({ handleCloseWindow, categories, setCategories, listItems
         setCategories(newCategories);
     };
 
+    const handleAddExampleCategories = () => {
+        setCategories(["Jedzenie", "Mieszkanie", "Transport"])
+    };
+
     return (
         <>
             <Box sx={{
+                mb: 2,
                 p: 2,
                 backgroundColor: blue[100],
                 borderRadius: 2,
@@ -62,7 +67,7 @@ const CategorySetup = ({ handleCloseWindow, categories, setCategories, listItems
                         width: "80%",
                         mt: 8,
                         p: 2,
-                        backgroundColor: grey[500],
+                        backgroundColor: darkMode ? grey[800] : grey[200],
                         borderRadius: 2
                     }}>
                     <IconButton
@@ -73,7 +78,7 @@ const CategorySetup = ({ handleCloseWindow, categories, setCategories, listItems
                             position: "absolute",
                             right: "0",
                             top: "0",
-                            backgroundColor: grey[500],
+                            backgroundColor: darkMode ? grey[800] : grey[200],
                             m: 2
                         }}>
                         <CancelIcon />
@@ -122,6 +127,11 @@ const CategorySetup = ({ handleCloseWindow, categories, setCategories, listItems
                         </ListItem>
                     ))}
                 </List>
+                {categories.length === 0 &&
+                    <ButtonStyled
+                        buttonText={"Add example categories"}
+                        onClick={handleAddExampleCategories}
+                    />}
             </Box >
             <MessageAlert
                 openMessage={open}
