@@ -26,8 +26,6 @@ export const useFormBudget = () => {
 
     const { description, category, variant, amount, date, searchDescription, searchCategory, searchVariant } = fields;
 
-    // const formattedDate = new Date(date).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' });
-
     const formattedAmount = Number(amount).toFixed(2);
 
     const validationAmount = (event) => {
