@@ -1,23 +1,34 @@
-import Form from "../common/Form";
+import { Typography, Box } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import RadioField from "../common/RadioField";
-import { radioData } from "../common/utils/data";
+import Form from "../common/Form";
 import InputField from "../common/InputField";
 import SelectField from "../common/SelectField";
 import ButtonStyled from "../common/ButtonStyled";
-import { Typography, Box } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import RadioField from "../common/RadioField";
+import { radioData } from "../common/utils/data";
 
 const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount, editableId, categories, darkMode }) => {
     const { description, category, variant, amount, date } = fields;
 
     return (
-        <Box sx={{ mb: 4, mt: 6, p: 2, borderRadius: 2, backgroundColor: darkMode ? grey[800] : grey[200] }}>
-            <Typography variant="h3" textAlign={"center"}>
+        <Box sx={{
+            mb: 4,
+            mt: 6,
+            p: 2,
+            borderRadius: 2,
+            backgroundColor: darkMode ? grey[800] : grey[200]
+        }}
+        >
+            <Typography
+                variant="h3"
+                textAlign={"center"}
+            >
                 Manage finances
             </Typography>
             <Form onSubmit={handleSubmit}>
                 <RadioField
+                    labelText={"What do you want to add to the list?"}
                     name="variant"
                     value={variant}
                     options={radioData}
@@ -62,7 +73,7 @@ const FormBudget = ({ fields, handleFieldChange, handleSubmit, validationAmount,
                     required
                 />
                 <ButtonStyled
-                    buttonText={editableId === null ? "Add to list" : "Save changes"}
+                    buttonText={!editableId ? "Add to list" : "Save changes"}
                     type="submit"
                     icon={<ControlPointIcon />}
                 />
