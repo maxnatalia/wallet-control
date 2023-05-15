@@ -2,13 +2,17 @@
 
 Wallet Control is a responsive web application developed using React JS, Material UI, and hooks.
 
-This application is a simple tool for managing your personal finances. It allows you to track your expenses and income, choose your preferred currency, and view your balance in real-time.
+This application is a simple tool for managing your personal finances. It allows you to track your expenses and incomes, choose your preferred currency, and view your balance in real-time.
 
 With Wallet Control, you can easily keep track of your spending and saving habits, set financial goals, and stay on top of your finances.
 
 ## 🔎Demo:
 
 [Manage your finances now!](https://maxnatalia.github.io/wallet-control/)
+
+## 👓Preview:
+
+![preview.gif](preview.gif)
 
 ## 📌Features:
 
@@ -20,7 +24,9 @@ With Wallet Control, you can easily keep track of your spending and saving habit
 - **Search and Filter**: Quickly search for specific items in your expense and income lists, and filter them by variant: incomes/expenses
 - **Edit and Delete**: Easily edit or delete any item in your expense or income lists.
 - **Balance Calculation**: Wallet Control automatically calculates your balance based on your income and expenses.
-- **Future Additions**: In the future, Wallet Control will include additional features such as more filtering and more...
+- **Add your own categories**: You can add/set your own categories and use them in app, or choose basic categories.
+- **Responsive**: this app can be used on different devices
+- **Alert information**: When something went wrong - you can see different alert messages
 
 ## 🛠️Technologies used:
 
