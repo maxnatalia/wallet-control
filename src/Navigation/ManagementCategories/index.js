@@ -19,13 +19,17 @@ const ManagementCategories = ({ handleAddCategory, categories, setCategories, li
             <Tooltip title="Management categories">
                 <Box display={"flex"} alignItems={"center"}
                     sx={{
-
                         padding: {
                             xs: 0,
                             md: 2,
                         }
                     }}>
-                    <IconButton aria-label="addCategory" size="large" sx={{ color: "white" }} onClick={handleExpandClick} >
+                    <IconButton
+                        aria-label="addCategory"
+                        size="large"
+                        sx={{ color: "white" }}
+                        onClick={handleExpandClick}
+                    >
                         <CategoryIcon />
                     </IconButton>
                     <Typography
