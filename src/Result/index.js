@@ -34,9 +34,7 @@ const Result = ({ totalAmount, currency }) => {
                     onClick={handleShowResult}>
                     <AccountBalanceWalletIcon sx={{ color: grey[500] }} />
                 </IconButton>
-
                 {showResult &&
-
                     <Typography
                         variant='h6'
                         component="span"
