@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import GridItem from "./GridItem";
 
-const GridView = ({ removeItem, editItem, currency, darkMode, listItems, filteredData }) => {
+const GridView = ({ removeItem, editItem, currency, darkMode, filteredData }) => {
 
     return (
         <Grid container spacing={2}>
