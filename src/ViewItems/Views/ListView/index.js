@@ -4,7 +4,7 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import EditIcon from '@mui/icons-material/Edit';
 import { formatPrice } from "../../../common/utils/formatPrice";
 
-const ListView = ({ removeItem, editItem, currency, darkMode, listItems, filteredData }) => {
+const ListView = ({ removeItem, editItem, currency, darkMode, filteredData }) => {
 
     return (
         <TableContainer
@@ -18,11 +18,11 @@ const ListView = ({ removeItem, editItem, currency, darkMode, listItems, filtere
                 {filteredData.length !== 0 &&
                     (<TableHead>
                         <TableRow>
-                            <TableCell>Category</TableCell>
+                            <TableCell>Description</TableCell>
                             <TableCell>Remove</TableCell>
                             <TableCell>Edit</TableCell>
                             <TableCell align="left">Income/Expense</TableCell>
-                            <TableCell align="left">Description</TableCell>
+                            <TableCell align="left">Category</TableCell>
                             <TableCell align="left">Date</TableCell>
                             <TableCell align="left">Amount</TableCell>
                         </TableRow>
@@ -32,7 +32,7 @@ const ListView = ({ removeItem, editItem, currency, darkMode, listItems, filtere
                     {filteredData.map((row) => (
                         <TableRow key={row.id}>
                             <TableCell component="th" scope="row">
-                                {row.category}
+                                {row.description}
                             </TableCell>
                             <TableCell align="left">
                                 <Tooltip title="Remove item">
@@ -59,7 +59,7 @@ const ListView = ({ removeItem, editItem, currency, darkMode, listItems, filtere
                                     </Avatar>
                                 }
                             </TableCell>
-                            <TableCell align="left">{row.description}</TableCell>
+                            <TableCell align="left">{row.category}</TableCell>
                             <TableCell align="left">{row.date}</TableCell>
                             <TableCell align="left">{formatPrice(row.amount, currency)}</TableCell>
                         </TableRow>
