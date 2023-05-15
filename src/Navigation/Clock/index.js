@@ -17,13 +17,17 @@ const Clock = () => {
             <Tooltip title={`Today's date - ${todayDate}`}>
                 <Box display={"flex"} alignItems={"center"}
                     sx={{
-
                         padding: {
                             xs: 0,
                             md: 2,
                         }
                     }}>
-                    <IconButton aria-label="addCategory" size="large" sx={{ color: "white" }} onClick={handleClick} >
+                    <IconButton
+                        aria-label="addCategory"
+                        size="large"
+                        sx={{ color: "white" }}
+                        onClick={handleClick}
+                    >
                         <CalendarTodayIcon />
                     </IconButton>
                     <Typography
